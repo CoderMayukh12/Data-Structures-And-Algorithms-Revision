@@ -25,6 +25,7 @@ public:
             subarraysum = max(nums[current], subarraysum + nums[current]);
             maxsum = max(maxsum, subarraysum);
         }
+        // Something Fishky
         return maxsum;
     }
 };
