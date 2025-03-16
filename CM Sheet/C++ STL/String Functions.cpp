@@ -1,73 +1,100 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long
-#define endl '\n'
-#define fast                      \
-    ios_base::sync_with_stdio(0); \
-    cin.tie(0);                   \
-    cout.tie(0);
-#define mod 1000000007
 
-int32_t main()
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+#define ordered_set tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>
+
+#define int long long
+#define pb push_back
+#define endl '\n'
+const int mod = 1e9 + 7;
+const long long INF = 1e18;
+
+void init()
 {
-    fast;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+}
+
+void solve()
+{
     int n, q;
     cin >> n >> q;
+
     string s;
     cin >> s;
 
     while (q--)
     {
-        string command;
-        cin >> command;
-        if (command == "pop_back")
+        string query;
+        cin >> query;
+        if (query == "pop_back" && s.size())
         {
             s.pop_back();
         }
-        else if (command == "front")
+        else if (query == "front" && s.size())
         {
             cout << s[0] << endl;
         }
-        else if (command == "back")
+        else if (query == "back" && s.size())
         {
             cout << s.back() << endl;
         }
-        else if (command == "sort")
+        else if (query == "sort")
         {
-            int l, r;
-            cin >> l >> r;
+            int lq, rq;
+            cin >> lq >> rq;
+            int l = min(lq, rq), r = max(lq, rq);
             l--, r--;
-            sort(s.begin() + l, s.begin() + r + 1);
+            if (r < s.size())
+                sort(s.begin() + l, s.begin() + r + 1);
         }
-        else if (command == "reverse")
+        else if (query == "reverse")
         {
-            int l, r;
-            cin >> l >> r;
+            int lq, rq;
+            cin >> lq >> rq;
+            int l = min(lq, rq), r = max(lq, rq);
             l--, r--;
-            reverse(s.begin() + l, s.begin() + r + 1);
+            if (r < s.size())
+                reverse(s.begin() + l, s.begin() + r + 1);
         }
-        else if (command == "print")
+        else if (query == "print")
         {
             int pos;
             cin >> pos;
             pos--;
-            cout << s[pos] << endl;
+            if (pos < s.size())
+                cout << s[pos] << endl;
         }
-        else if (command == "substr")
+        else if (query == "substr")
         {
-            int l, r;
-            cin >> l >> r;
+            int lq, rq;
+            cin >> lq >> rq;
+            int l = min(lq, rq), r = max(lq, rq);
             l--, r--;
-            string ans = s.substr(l, r - l + 1);
-            cout << ans << endl;
+            if (r < s.size())
+                cout << s.substr(l, r - l + 1) << endl;
         }
-        else if (command == "push_back")
+        else if (query == "push_back")
         {
             char x;
             cin >> x;
             s.push_back(x);
         }
     }
+}
+
+int32_t main()
+{
+
+    init();
+    int _t = 1;
+    // cin >> _t;
+    while (_t--)
+        solve();
 
     return 0;
 }
